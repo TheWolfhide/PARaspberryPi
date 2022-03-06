@@ -1,0 +1,1964 @@
+[
+    {
+        "id": "aaf26bbbaa3f0610",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b059d8bc25a5ef28",
+        "type": "rpi-gpio out",
+        "z": "aaf26bbbaa3f0610",
+        "name": "+M1",
+        "pin": "4",
+        "set": "",
+        "level": "0",
+        "freq": "1000",
+        "out": "pwm",
+        "bcm": true,
+        "x": 1550,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "cd77ea06b4adb354",
+        "type": "rpi-gpio out",
+        "z": "aaf26bbbaa3f0610",
+        "name": "-M1",
+        "pin": "17",
+        "set": "",
+        "level": "0",
+        "freq": "1000",
+        "out": "pwm",
+        "bcm": true,
+        "x": 1410,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "437c05d16cf76123",
+        "type": "rpi-gpio out",
+        "z": "aaf26bbbaa3f0610",
+        "name": "-M2",
+        "pin": "27",
+        "set": "",
+        "level": "0",
+        "freq": "1000",
+        "out": "pwm",
+        "bcm": true,
+        "x": 1330,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "7850cb0917751d77",
+        "type": "rpi-gpio out",
+        "z": "aaf26bbbaa3f0610",
+        "name": "+M2",
+        "pin": "22",
+        "set": "",
+        "level": "0",
+        "freq": "1000",
+        "out": "pwm",
+        "bcm": true,
+        "x": 1510,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "9b59c2f6746e1b07",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Forward",
+        "group": "e14d2e10b6307df1",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "passthru": false,
+        "label": "",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#5555FF",
+        "className": "",
+        "icon": "fa-arrow-up fa-4x",
+        "payload": "forward",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 160,
+        "y": 460,
+        "wires": [
+            [
+                "ed578416e5507dca"
+            ]
+        ]
+    },
+    {
+        "id": "af869d333ce3fd8a",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Backward",
+        "group": "3ddbcfc52c3db6c1",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "passthru": false,
+        "label": "",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#5555FF",
+        "className": "",
+        "icon": "fa-arrow-down fa-4x",
+        "payload": "backward",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 160,
+        "y": 540,
+        "wires": [
+            [
+                "ed578416e5507dca"
+            ]
+        ]
+    },
+    {
+        "id": "fecb5876b1165ade",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Left",
+        "group": "eb0562808e4babe7",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "passthru": false,
+        "label": "",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#5555FF",
+        "className": "",
+        "icon": "fa-arrow-left fa-4x",
+        "payload": "left",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 620,
+        "wires": [
+            [
+                "ed578416e5507dca"
+            ]
+        ]
+    },
+    {
+        "id": "77281249eee1c142",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Right",
+        "group": "bcd62990b431dc1f",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "passthru": false,
+        "label": "",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#5555FF",
+        "className": "",
+        "icon": "fa-arrow-right fa-4x",
+        "payload": "right",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 700,
+        "wires": [
+            [
+                "ed578416e5507dca"
+            ]
+        ]
+    },
+    {
+        "id": "ed578416e5507dca",
+        "type": "function",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Wheel Motors",
+        "func": "var msg1 = {payload: 0};\nvar msg2 = {payload: 0};\nvar msg3 = {payload: 0};\nvar msg4 = {payload: 0};\nvar msg5 = {payload: 0};\nvar motorspd = 100\nif (msg.payload === \"forward\") {\n    msg1.payload = motorspd\n    msg3.payload = motorspd\n}\nelse if (msg.payload === \"backward\") {\n    msg2.payload = motorspd\n    msg4.payload = motorspd\n}\nelse if (msg.payload === \"right\") {\n    msg3.payload = motorspd\n    msg2.payload = motorspd\n}\nelse if (msg.payload === \"left\") {\n    msg1.payload = motorspd\n    msg4.payload = motorspd\n}\n\n\nreturn [msg1, msg2, msg3, msg4, msg5];",
+        "outputs": 5,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 680,
+        "wires": [
+            [
+                "89b918044ffd5b03"
+            ],
+            [
+                "75957bcc2f311df3"
+            ],
+            [
+                "711e25fac8c1bd95"
+            ],
+            [
+                "60693a6894055521"
+            ],
+            [
+                "f8cd9d46a50db699",
+                "4f8f79dbd4135d66",
+                "8bcb3697ad1698ea"
+            ]
+        ]
+    },
+    {
+        "id": "868266fcce22aacc",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Stop",
+        "group": "9f279e159314262c",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "passthru": false,
+        "label": "",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#2222FF",
+        "className": "",
+        "icon": "fa-hand-paper-o fa-3x",
+        "payload": "stop",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 780,
+        "wires": [
+            [
+                "ed578416e5507dca"
+            ]
+        ]
+    },
+    {
+        "id": "70b3f880a9beeb01",
+        "type": "exec",
+        "z": "aaf26bbbaa3f0610",
+        "command": "sudo shutdown -h now",
+        "addpay": "",
+        "append": "poweroff",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Power Off",
+        "x": 580,
+        "y": 880,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "4f8f79dbd4135d66",
+        "type": "ui_switch",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Water",
+        "label": "<font size=5>WATER",
+        "tooltip": "",
+        "group": "5e0d65caa411560f",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "num",
+        "onicon": "fa-tint fa-3x",
+        "oncolor": "cyan",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "fa-tint fa-3x",
+        "offcolor": "grey",
+        "animate": true,
+        "className": "",
+        "x": 470,
+        "y": 520,
+        "wires": [
+            [
+                "294bda6bd81564d1",
+                "9fd3a4b4dd37b8cd",
+                "d524154a17a5f23e",
+                "8b870afb04f0bf12",
+                "b44b59a26567662e"
+            ]
+        ]
+    },
+    {
+        "id": "7f21f4336c2a312c",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Insert",
+        "group": "d2cf1729468516ec",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "passthru": false,
+        "label": "<font size=1>Dig / Insert Moisture Sensor ",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "fa-arrows-v fa-3x",
+        "payload": "{\"group\":{\"hide\":[\"Home_Forward\",\"Home_Backward\",\"Home_Left\",\"Home_Right\",\"Home_Stop\",\"Home_Shut_Down_Raspberry_Pi\",\"Home_Insert\",\"Home_Water\",\"Home_Dispense_Seed\",\"Home_Calibrate_Seed_Dispenser\"],\"show\":[\"Home_Retract\",\"Home_Moisture_Level\",\"Home_Read_Moisture_Level\"]}}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 90,
+        "y": 40,
+        "wires": [
+            [
+                "f4671567b8955728",
+                "fc942997958153f0",
+                "9aa314b40208514b",
+                "b69fd394d4851cb5"
+            ]
+        ]
+    },
+    {
+        "id": "7dcda8f8c4bc9cee",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Dispense Seed",
+        "group": "46e7a70feb787028",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "passthru": false,
+        "label": "Dispense Seed",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "fa-cog fa-3x",
+        "payload": "{\"group\":{\"hide\":[\"Home_Forward\",\"Home_Backward\",\"Home_Left\",\"Home_Right\",\"Home_Stop\",\"Home_Shut_Down_Raspberry_Pi\",\"Home_Insert\",\"Home_Retract\",\"Home_Water\",\"Home_Dispense_Seed\",\"Home_Calibrate_Seed_Dispenser\"],\"show\":[\"Home_Waiting\"]}}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 280,
+        "y": 80,
+        "wires": [
+            [
+                "e0573ddd2c322186",
+                "fc942997958153f0",
+                "7f2d7db0fe4d5b27"
+            ]
+        ]
+    },
+    {
+        "id": "294bda6bd81564d1",
+        "type": "rpi-gpio out",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Relay 1",
+        "pin": "26",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 1120,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "9fd3a4b4dd37b8cd",
+        "type": "rpi-gpio out",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Relay 2",
+        "pin": "20",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 1120,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "b46668044629ae6b",
+        "type": "rpi-gpio out",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Relay 3",
+        "pin": "21",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 1120,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "f8cd9d46a50db699",
+        "type": "rpi-gpio out",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Relay 1 pin low",
+        "pin": "26",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 980,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "8bcb3697ad1698ea",
+        "type": "rpi-gpio out",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Relay 2 pin low",
+        "pin": "20",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 960,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "cd571bb075e5429e",
+        "type": "function",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Toggle appropriate relays",
+        "func": "var msg1 = {payload:1};\nvar msg2 = {payload:0};\nreturn [msg1, msg2];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 140,
+        "wires": [
+            [
+                "9fd3a4b4dd37b8cd"
+            ],
+            [
+                "b46668044629ae6b"
+            ]
+        ]
+    },
+    {
+        "id": "b8f898834d55905d",
+        "type": "delay",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1180,
+        "y": 540,
+        "wires": [
+            [
+                "970b345698c5350c"
+            ]
+        ]
+    },
+    {
+        "id": "3a3f2d9e570f8251",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "To PWM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "30",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1580,
+        "y": 780,
+        "wires": [
+            [
+                "437c05d16cf76123"
+            ]
+        ]
+    },
+    {
+        "id": "bb0826b2b3d915c1",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "To PWM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "30",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 540,
+        "wires": [
+            [
+                "7850cb0917751d77"
+            ]
+        ]
+    },
+    {
+        "id": "7a87c3ba3e80093e",
+        "type": "switch",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 990,
+        "y": 320,
+        "wires": [
+            [
+                "bb0826b2b3d915c1"
+            ],
+            [
+                "b8f898834d55905d",
+                "7850cb0917751d77"
+            ]
+        ]
+    },
+    {
+        "id": "c6a7e9e6cb269127",
+        "type": "switch",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1330,
+        "y": 740,
+        "wires": [
+            [
+                "3a3f2d9e570f8251"
+            ],
+            [
+                "a79c5a6964cd7a68",
+                "f6b03d67c988f185"
+            ]
+        ]
+    },
+    {
+        "id": "a79c5a6964cd7a68",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "To Zero",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1460,
+        "y": 820,
+        "wires": [
+            [
+                "437c05d16cf76123"
+            ]
+        ]
+    },
+    {
+        "id": "d524154a17a5f23e",
+        "type": "switch",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 710,
+        "y": 560,
+        "wires": [
+            [
+                "4809f51774f5714c"
+            ],
+            [
+                "b059d8bc25a5ef28"
+            ]
+        ]
+    },
+    {
+        "id": "4809f51774f5714c",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "100",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1300,
+        "y": 320,
+        "wires": [
+            [
+                "b059d8bc25a5ef28"
+            ]
+        ]
+    },
+    {
+        "id": "f6bf41fe48b22b8c",
+        "type": "countdown",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "topic": "",
+        "payloadTimerStart": "true",
+        "payloadTimerStartType": "bool",
+        "payloadTimerStop": "false",
+        "payloadTimerStopType": "bool",
+        "timer": "1",
+        "resetWhileRunning": false,
+        "setTimeToNewWhileRunning": true,
+        "startCountdownOnControlMessage": false,
+        "minuteCounter": false,
+        "x": 830,
+        "y": 420,
+        "wires": [
+            [
+                "7a87c3ba3e80093e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "970b345698c5350c",
+        "type": "countdown",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "topic": "",
+        "payloadTimerStart": "true",
+        "payloadTimerStartType": "bool",
+        "payloadTimerStop": "false",
+        "payloadTimerStopType": "bool",
+        "timer": "1",
+        "resetWhileRunning": true,
+        "setTimeToNewWhileRunning": true,
+        "startCountdownOnControlMessage": false,
+        "minuteCounter": false,
+        "x": 1170,
+        "y": 700,
+        "wires": [
+            [
+                "c6a7e9e6cb269127"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f6b03d67c988f185",
+        "type": "function",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Show all nodes",
+        "func": "\nreturn {payload: {\"group\": {\"show\": [\"Home_Forward\", \"Home_Backward\", \"Home_Left\", \"Home_Right\", \"Home_Stop\", \"Home_Shut_Down_Raspberry_Pi\", \"Home_Water\", \"Home_Insert\", \"Home_Dispense_Seed\", \"Home_Calibrate_Seed_Dispenser\"], \"hide\": [\"Home_Waiting\", \"Home_Retract\", \"Home_Moisture_Level\", \"Home_Read_Moisture_Level\"]}}};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1620,
+        "y": 260,
+        "wires": [
+            [
+                "fc942997958153f0"
+            ]
+        ]
+    },
+    {
+        "id": "fc942997958153f0",
+        "type": "ui_ui_control",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "events": "all",
+        "x": 1800,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "093a0a42e49fd586",
+        "type": "inject",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1380,
+        "y": 240,
+        "wires": [
+            [
+                "f6b03d67c988f185"
+            ]
+        ]
+    },
+    {
+        "id": "cf56da5e351fb85d",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Power Off",
+        "group": "2ede76f67cc827c3",
+        "order": 1,
+        "width": 19,
+        "height": 3,
+        "passthru": false,
+        "label": "Shut Down Pi <font size=1>(After pressing this wait until green light stops flashing then put the power pack on standby)",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "red",
+        "className": "",
+        "icon": "fa-power-off fa-3x",
+        "payload": "1",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 160,
+        "y": 880,
+        "wires": [
+            [
+                "70b3f880a9beeb01"
+            ]
+        ]
+    },
+    {
+        "id": "3985b110e2829da2",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Logo",
+        "group": "cc709c2e43ec1fe1",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "passthru": false,
+        "label": "<font size=5> ElectroPi",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "olive",
+        "className": "",
+        "icon": "fa-leaf fa-2x",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 190,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "89b918044ffd5b03",
+        "type": "delay",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "20",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 950,
+        "y": 620,
+        "wires": [
+            [
+                "b059d8bc25a5ef28"
+            ]
+        ]
+    },
+    {
+        "id": "75957bcc2f311df3",
+        "type": "delay",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "20",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 950,
+        "y": 660,
+        "wires": [
+            [
+                "cd77ea06b4adb354"
+            ]
+        ]
+    },
+    {
+        "id": "711e25fac8c1bd95",
+        "type": "delay",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "20",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 950,
+        "y": 700,
+        "wires": [
+            [
+                "437c05d16cf76123"
+            ]
+        ]
+    },
+    {
+        "id": "60693a6894055521",
+        "type": "delay",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "20",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 950,
+        "y": 740,
+        "wires": [
+            [
+                "7850cb0917751d77"
+            ]
+        ]
+    },
+    {
+        "id": "c515feee213c0ade",
+        "type": "comment",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Used for debugging purposes only",
+        "info": "",
+        "x": 1440,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "8b870afb04f0bf12",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 600,
+        "wires": [
+            [
+                "cd77ea06b4adb354",
+                "437c05d16cf76123",
+                "7850cb0917751d77"
+            ]
+        ]
+    },
+    {
+        "id": "e0573ddd2c322186",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 120,
+        "wires": [
+            [
+                "cd571bb075e5429e",
+                "f6bf41fe48b22b8c",
+                "294bda6bd81564d1"
+            ]
+        ]
+    },
+    {
+        "id": "f4671567b8955728",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 260,
+        "wires": [
+            [
+                "9fd3a4b4dd37b8cd",
+                "b46668044629ae6b",
+                "294bda6bd81564d1",
+                "0066d51b1ad4cba2"
+            ]
+        ]
+    },
+    {
+        "id": "82f3d9fbbe403d97",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"group\":{\"hide\":[\"Home_Forward\",\"Home_Backward\",\"Home_Left\",\"Home_Right\",\"Home_Stop\",\"Home_Shut_Down_Raspberry_Pi\",\"Home_Insert\",\"Home_Detract\",\"Home_Dispense_Seed\",\"Home_Calibrate_Seed_Dispenser\"]}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 320,
+        "wires": [
+            [
+                "fc942997958153f0"
+            ]
+        ]
+    },
+    {
+        "id": "5bfc2ecd3a03ea62",
+        "type": "comment",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Change payload to 1",
+        "info": "",
+        "x": 430,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "68c92599f1665261",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Waiting",
+        "group": "ed3ebd0cb110b90a",
+        "order": 0,
+        "width": "12",
+        "height": "3",
+        "passthru": false,
+        "label": "Waiting for process to be completed...",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 340,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b44b59a26567662e",
+        "type": "switch",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 290,
+        "y": 320,
+        "wires": [
+            [
+                "82f3d9fbbe403d97"
+            ],
+            [
+                "f6b03d67c988f185"
+            ]
+        ]
+    },
+    {
+        "id": "7f2d7db0fe4d5b27",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 140,
+        "wires": [
+            [
+                "cd77ea06b4adb354",
+                "b059d8bc25a5ef28"
+            ]
+        ]
+    },
+    {
+        "id": "4369e234e60e4e8a",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Clockwise",
+        "group": "55abcce576f3a004",
+        "order": 0,
+        "width": "19",
+        "height": "1",
+        "passthru": false,
+        "label": "Turn seed dispenser clockwise",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 720,
+        "y": 20,
+        "wires": [
+            [
+                "294bda6bd81564d1",
+                "cd571bb075e5429e",
+                "7f2d7db0fe4d5b27",
+                "ed77404f7200d213",
+                "ccea6a1d7cbc167f",
+                "fd532c9afe580da1"
+            ]
+        ]
+    },
+    {
+        "id": "f44a373badae9823",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Anticlockwise",
+        "group": "55abcce576f3a004",
+        "order": 1,
+        "width": "19",
+        "height": "1",
+        "passthru": false,
+        "label": "Turn seed dispenser anticlockwise",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 960,
+        "y": 20,
+        "wires": [
+            [
+                "294bda6bd81564d1",
+                "cd571bb075e5429e",
+                "7f2d7db0fe4d5b27",
+                "eb9f0c38d91d5ba7",
+                "1213cdad4ffe4d42",
+                "3e6d649bfd08f66c"
+            ]
+        ]
+    },
+    {
+        "id": "ed77404f7200d213",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "To PWM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 900,
+        "wires": [
+            [
+                "7850cb0917751d77"
+            ]
+        ]
+    },
+    {
+        "id": "eb9f0c38d91d5ba7",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "To PWM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 380,
+        "wires": [
+            [
+                "437c05d16cf76123"
+            ]
+        ]
+    },
+    {
+        "id": "ccea6a1d7cbc167f",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "To Zero",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1640,
+        "y": 580,
+        "wires": [
+            [
+                "437c05d16cf76123"
+            ]
+        ]
+    },
+    {
+        "id": "1213cdad4ffe4d42",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "To Zero",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1880,
+        "y": 600,
+        "wires": [
+            [
+                "7850cb0917751d77"
+            ]
+        ]
+    },
+    {
+        "id": "3e6d649bfd08f66c",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"group\":{\"hide\":[\"Home_Forward\",\"Home_Backward\",\"Home_Left\",\"Home_Right\",\"Home_Shut_Down_Raspberry_Pi\",\"Home_Insert\",\"Home_Retract\",\"Home_Dispense_Seed\",\"Home_Water\"]}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1300,
+        "y": 20,
+        "wires": [
+            [
+                "fc942997958153f0"
+            ]
+        ]
+    },
+    {
+        "id": "fd532c9afe580da1",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"group\":{\"hide\":[\"Home_Forward\",\"Home_Backward\",\"Home_Left\",\"Home_Right\",\"Home_Shut_Down_Raspberry_Pi\",\"Home_Insert\",\"Home_Retract\",\"Home_Dispense_Seed\",\"Home_Water\"]}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1280,
+        "y": 60,
+        "wires": [
+            [
+                "fc942997958153f0"
+            ]
+        ]
+    },
+    {
+        "id": "a1b8f7bfd3384aac",
+        "type": "ui_gauge",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Moisture Level",
+        "group": "5fd5b84adefd6235",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Moisture Level",
+        "label": "percentage moisture",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#b30000",
+            "#e6e600",
+            "#3ccb3a"
+        ],
+        "seg1": "30",
+        "seg2": "70",
+        "className": "",
+        "x": 1320,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "591cbadaaca74134",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Retract",
+        "group": "6b7a469fed862905",
+        "order": 2,
+        "width": "6",
+        "height": "3",
+        "passthru": false,
+        "label": "Retract",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "fa-arrows-v fa-3x",
+        "payload": "1",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 60,
+        "y": 200,
+        "wires": [
+            [
+                "313267987e56dc9a"
+            ]
+        ]
+    },
+    {
+        "id": "e9f131be896ce144",
+        "type": "switch",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 250,
+        "y": 260,
+        "wires": [
+            [
+                "f6b03d67c988f185"
+            ]
+        ]
+    },
+    {
+        "id": "0066d51b1ad4cba2",
+        "type": "countdown",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "topic": "",
+        "payloadTimerStart": "true",
+        "payloadTimerStartType": "bool",
+        "payloadTimerStop": "false",
+        "payloadTimerStopType": "bool",
+        "timer": "4",
+        "resetWhileRunning": false,
+        "setTimeToNewWhileRunning": true,
+        "startCountdownOnControlMessage": false,
+        "minuteCounter": false,
+        "x": 530,
+        "y": 380,
+        "wires": [
+            [
+                "1b1694830c17ef40"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "54abfafe9ab6a87e",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "To PWM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "100",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 480,
+        "wires": [
+            [
+                "7850cb0917751d77"
+            ]
+        ]
+    },
+    {
+        "id": "1b1694830c17ef40",
+        "type": "switch",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 420,
+        "wires": [
+            [
+                "54abfafe9ab6a87e"
+            ],
+            [
+                "7850cb0917751d77"
+            ]
+        ]
+    },
+    {
+        "id": "313267987e56dc9a",
+        "type": "countdown",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "topic": "",
+        "payloadTimerStart": "true",
+        "payloadTimerStartType": "bool",
+        "payloadTimerStop": "false",
+        "payloadTimerStopType": "bool",
+        "timer": "4",
+        "resetWhileRunning": false,
+        "setTimeToNewWhileRunning": true,
+        "startCountdownOnControlMessage": false,
+        "minuteCounter": false,
+        "x": 90,
+        "y": 280,
+        "wires": [
+            [
+                "ae097d282976904c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ae097d282976904c",
+        "type": "switch",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 130,
+        "y": 400,
+        "wires": [
+            [
+                "6bbec644c7c3d1c5"
+            ],
+            [
+                "437c05d16cf76123",
+                "e9f131be896ce144",
+                "f6b03d67c988f185"
+            ]
+        ]
+    },
+    {
+        "id": "6bbec644c7c3d1c5",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "To PWM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "100",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 440,
+        "wires": [
+            [
+                "437c05d16cf76123"
+            ]
+        ]
+    },
+    {
+        "id": "1873736c7755a4e5",
+        "type": "exec",
+        "z": "aaf26bbbaa3f0610",
+        "command": "python3 moisture-sensor/GetMoistureLevel.py",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 860,
+        "y": 1020,
+        "wires": [
+            [
+                "afa99805c948bc34"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "410973530f7e376e",
+        "type": "ui_button",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Read Moisture Level",
+        "group": "6e8c0736a6541ff3",
+        "order": 0,
+        "width": "6",
+        "height": "3",
+        "passthru": false,
+        "label": "Read Moisture Level",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 540,
+        "y": 1020,
+        "wires": [
+            [
+                "1873736c7755a4e5"
+            ]
+        ]
+    },
+    {
+        "id": "afa99805c948bc34",
+        "type": "function",
+        "z": "aaf26bbbaa3f0610",
+        "name": "Convert",
+        "func": "\nvar voltage = msg.payload\n\nvar resistance = Number((100000 * voltage)/(3.3 - voltage))\nvar MoisturePercentage = (45000*100)/resistance\nif (MoisturePercentage > 100){\n     MoisturePercentage = 100;\n }\n if (MoisturePercentage < 0){\n     MoisturePercentage = 0\n }\nmsg = {payload: MoisturePercentage.toFixed(1)};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 1020,
+        "wires": [
+            [
+                "a1b8f7bfd3384aac",
+                "def53f13852a6c71"
+            ]
+        ]
+    },
+    {
+        "id": "def53f13852a6c71",
+        "type": "debug",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "9aa314b40208514b",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Unknown",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 940,
+        "wires": [
+            [
+                "a1b8f7bfd3384aac"
+            ]
+        ]
+    },
+    {
+        "id": "b69fd394d4851cb5",
+        "type": "change",
+        "z": "aaf26bbbaa3f0610",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 80,
+        "y": 140,
+        "wires": [
+            [
+                "b059d8bc25a5ef28",
+                "437c05d16cf76123",
+                "cd77ea06b4adb354"
+            ]
+        ]
+    },
+    {
+        "id": "ebcd09401a7b1055",
+        "type": "ui_spacer",
+        "z": "aaf26bbbaa3f0610",
+        "name": "spacer",
+        "group": "2ede76f67cc827c3",
+        "order": 1,
+        "width": "19",
+        "height": "3"
+    },
+    {
+        "id": "e14d2e10b6307df1",
+        "type": "ui_group",
+        "name": "Forward",
+        "tab": "108b0ff87a51e3fc",
+        "order": 2,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3ddbcfc52c3db6c1",
+        "type": "ui_group",
+        "name": "Backward",
+        "tab": "108b0ff87a51e3fc",
+        "order": 8,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "eb0562808e4babe7",
+        "type": "ui_group",
+        "name": "Left",
+        "tab": "108b0ff87a51e3fc",
+        "order": 4,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bcd62990b431dc1f",
+        "type": "ui_group",
+        "name": "Right",
+        "tab": "108b0ff87a51e3fc",
+        "order": 6,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9f279e159314262c",
+        "type": "ui_group",
+        "name": "Stop",
+        "tab": "108b0ff87a51e3fc",
+        "order": 5,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "5e0d65caa411560f",
+        "type": "ui_group",
+        "name": "Water",
+        "tab": "108b0ff87a51e3fc",
+        "order": 3,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d2cf1729468516ec",
+        "type": "ui_group",
+        "name": "Insert",
+        "tab": "108b0ff87a51e3fc",
+        "order": 9,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "46e7a70feb787028",
+        "type": "ui_group",
+        "name": "Dispense Seed",
+        "tab": "108b0ff87a51e3fc",
+        "order": 7,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2ede76f67cc827c3",
+        "type": "ui_group",
+        "name": "Shut Down Raspberry Pi",
+        "tab": "108b0ff87a51e3fc",
+        "order": 13,
+        "disp": false,
+        "width": 19,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "cc709c2e43ec1fe1",
+        "type": "ui_group",
+        "name": "Logo",
+        "tab": "108b0ff87a51e3fc",
+        "order": 1,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ed3ebd0cb110b90a",
+        "type": "ui_group",
+        "name": "Waiting",
+        "tab": "108b0ff87a51e3fc",
+        "order": 14,
+        "disp": false,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "55abcce576f3a004",
+        "type": "ui_group",
+        "name": "Calibrate Seed Dispenser",
+        "tab": "108b0ff87a51e3fc",
+        "order": 11,
+        "disp": true,
+        "width": "19",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "5fd5b84adefd6235",
+        "type": "ui_group",
+        "name": "Moisture Level",
+        "tab": "108b0ff87a51e3fc",
+        "order": 12,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "6b7a469fed862905",
+        "type": "ui_group",
+        "name": "Retract",
+        "tab": "108b0ff87a51e3fc",
+        "order": 10,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "6e8c0736a6541ff3",
+        "type": "ui_group",
+        "name": "Read Moisture Level",
+        "tab": "108b0ff87a51e3fc",
+        "order": 15,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "108b0ff87a51e3fc",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "fa-arrow-up",
+        "disabled": false,
+        "hidden": false
+    }
+]
